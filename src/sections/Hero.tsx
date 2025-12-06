@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { ArrowRight, Camera, Flame } from 'lucide-react';
+import { ArrowRight, Flame } from 'lucide-react';
 import { Button } from '../components/ui/Button';
 import { Section } from '../components/ui/Section';
 import { Link } from 'react-scroll';
@@ -48,6 +48,8 @@ export const Hero = () => {
                  src="/me.png" 
                  alt="Mohammad Shaban" 
                  className="w-full h-full object-cover object-top"
+                 width="64"
+                 height="64"
                />
             </div>
             <div className="flex flex-col">

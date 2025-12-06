@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion';
 import { Section } from '../components/ui/Section';
-import { Github, Linkedin, Cpu, Camera } from 'lucide-react';
+import { Github, Linkedin, Cpu } from 'lucide-react';
 
 // Official tech icons from devicon CDN
 const skills = {
