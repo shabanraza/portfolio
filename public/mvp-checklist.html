@@ -1,0 +1,652 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Enterprise MVP Checklist - Shaban.dev</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+        
+        * { box-sizing: border-box; }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            line-height: 1.7;
+            color: #1f2937;
+            max-width: 850px;
+            margin: 0 auto;
+            padding: 48px 40px;
+            background: #fff;
+        }
+
+        .header {
+            text-align: center;
+            border-bottom: 2px solid #f3f4f6;
+            padding-bottom: 40px;
+            margin-bottom: 48px;
+        }
+
+        .logo {
+            font-weight: 800;
+            font-size: 20px;
+            letter-spacing: -0.02em;
+            color: #000;
+            text-transform: uppercase;
+            margin-bottom: 24px;
+        }
+        .logo span { color: #f59e0b; }
+
+        h1 { 
+            font-size: 42px; 
+            margin-bottom: 16px; 
+            color: #111827; 
+            font-weight: 800;
+            letter-spacing: -0.03em;
+        }
+
+        h2 { 
+            font-size: 26px; 
+            margin-top: 56px; 
+            margin-bottom: 24px;
+            color: #111827; 
+            border-left: 4px solid #f59e0b; 
+            padding-left: 20px;
+            font-weight: 700;
+        }
+
+        h3 { 
+            font-size: 18px; 
+            color: #111827; 
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+
+        .intro { 
+            font-size: 18px; 
+            color: #6b7280; 
+            text-align: center; 
+            max-width: 600px; 
+            margin: 0 auto; 
+        }
+
+        .badge {
+            display: inline-block;
+            background: #fef3c7;
+            color: #92400e;
+            font-size: 12px;
+            font-weight: 600;
+            padding: 4px 12px;
+            border-radius: 20px;
+            margin-bottom: 16px;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .checklist-item {
+            background: #f9fafb;
+            padding: 24px;
+            border-radius: 12px;
+            margin-bottom: 16px;
+            border: 1px solid #e5e7eb;
+            page-break-inside: avoid;
+        }
+
+        .checklist-item p {
+            margin: 0;
+            color: #4b5563;
+        }
+
+        .checkbox {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 22px;
+            height: 22px;
+            border: 2px solid #d1d5db;
+            border-radius: 6px;
+            margin-right: 14px;
+            vertical-align: middle;
+            flex-shrink: 0;
+        }
+
+        .step-number {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 28px;
+            height: 28px;
+            background: #f59e0b;
+            color: #fff;
+            font-weight: 700;
+            font-size: 14px;
+            border-radius: 50%;
+            margin-right: 12px;
+        }
+
+        /* Tables */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 24px 0;
+            font-size: 14px;
+        }
+
+        th, td {
+            padding: 14px 16px;
+            text-align: left;
+            border: 1px solid #e5e7eb;
+        }
+
+        th {
+            background: #111827;
+            color: #fff;
+            font-weight: 600;
+        }
+
+        tr:nth-child(even) { background: #f9fafb; }
+
+        .highlight-row { background: #fef3c7 !important; }
+
+        /* Budget Section */
+        .budget-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px;
+            margin: 24px 0;
+        }
+
+        .budget-card {
+            background: #f9fafb;
+            border: 1px solid #e5e7eb;
+            border-radius: 12px;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .budget-card.recommended {
+            background: #111827;
+            color: #fff;
+            border-color: #111827;
+        }
+
+        .budget-card h4 {
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin: 0 0 8px 0;
+            color: #6b7280;
+        }
+
+        .budget-card.recommended h4 { color: #9ca3af; }
+
+        .budget-card .price {
+            font-size: 32px;
+            font-weight: 800;
+            margin: 0;
+        }
+
+        .budget-card.recommended .price { color: #f59e0b; }
+
+        .budget-card .desc {
+            font-size: 13px;
+            color: #6b7280;
+            margin-top: 8px;
+        }
+
+        .budget-card.recommended .desc { color: #9ca3af; }
+
+        /* Timeline */
+        .timeline {
+            position: relative;
+            padding-left: 32px;
+            margin: 24px 0;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 8px;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: #e5e7eb;
+        }
+
+        .timeline-item {
+            position: relative;
+            padding-bottom: 24px;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -28px;
+            top: 4px;
+            width: 12px;
+            height: 12px;
+            background: #f59e0b;
+            border-radius: 50%;
+        }
+
+        .timeline-item h4 {
+            margin: 0 0 4px 0;
+            font-size: 16px;
+            color: #111827;
+        }
+
+        .timeline-item p {
+            margin: 0;
+            color: #6b7280;
+            font-size: 14px;
+        }
+
+        .timeline-item .duration {
+            display: inline-block;
+            background: #fef3c7;
+            color: #92400e;
+            font-size: 12px;
+            font-weight: 600;
+            padding: 2px 8px;
+            border-radius: 4px;
+            margin-top: 8px;
+        }
+
+        /* Mistakes Section */
+        .mistake-item {
+            display: flex;
+            gap: 16px;
+            padding: 20px;
+            background: #fef2f2;
+            border: 1px solid #fecaca;
+            border-radius: 12px;
+            margin-bottom: 16px;
+        }
+
+        .mistake-icon {
+            flex-shrink: 0;
+            width: 32px;
+            height: 32px;
+            background: #ef4444;
+            color: #fff;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+        }
+
+        .mistake-content h4 {
+            margin: 0 0 4px 0;
+            color: #991b1b;
+        }
+
+        .mistake-content p {
+            margin: 0;
+            color: #7f1d1d;
+            font-size: 14px;
+        }
+
+        .fix {
+            margin-top: 8px;
+            padding: 12px;
+            background: #dcfce7;
+            border-radius: 8px;
+            font-size: 13px;
+            color: #166534;
+        }
+
+        .fix strong { color: #15803d; }
+
+        /* Footer */
+        .footer {
+            margin-top: 64px;
+            border-top: 2px solid #f3f4f6;
+            padding-top: 32px;
+            text-align: center;
+        }
+
+        .footer p {
+            font-size: 14px;
+            color: #6b7280;
+            margin-bottom: 16px;
+        }
+
+        .btn {
+            display: inline-block;
+            background: #111827;
+            color: #fff;
+            padding: 14px 28px;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: 600;
+            margin: 8px;
+            transition: background 0.2s;
+        }
+
+        .btn:hover { background: #1f2937; }
+
+        .btn-outline {
+            background: #fff;
+            color: #111827;
+            border: 2px solid #e5e7eb;
+        }
+
+        .btn-outline:hover { background: #f9fafb; }
+
+        @media print {
+            body { padding: 20px; }
+            .btn { display: none; }
+            h2 { margin-top: 32px; }
+        }
+
+        @media (max-width: 600px) {
+            body { padding: 24px 16px; }
+            h1 { font-size: 28px; }
+            .budget-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="header">
+        <div class="logo">SHABAN<span>.DEV</span></div>
+        <div class="badge">Free Resource</div>
+        <h1>The Enterprise MVP Checklist</h1>
+        <p class="intro">A strategic framework to validate, build, and ship scalable products without wasting capital. Used by YC-backed startups and Fortune 500 innovation teams.</p>
+    </div>
+
+    <!-- ============================================ -->
+    <!-- SECTION 1: 7-STEP VALIDATION FRAMEWORK -->
+    <!-- ============================================ -->
+    <h2>Part 1: The 7-Step Validation Framework</h2>
+    <p style="color: #6b7280; margin-bottom: 24px;">Before writing a single line of code, validate your idea with this proven framework used by Y Combinator startups.</p>
+
+    <div class="checklist-item">
+        <h3><span class="step-number">1</span> The "Hair on Fire" Problem</h3>
+        <p>Does this solve a problem users are <strong>desperate</strong> to fix? Look for people using spreadsheets, manual workarounds, or cobbled-together solutions. If no one is actively trying to solve this problem today, reconsider.</p>
+    </div>
+
+    <div class="checklist-item">
+        <h3><span class="step-number">2</span> The Mom Test</h3>
+        <p>Talk to 10+ potential users. Don't ask "Would you use this?" Instead ask: "Tell me about the last time you dealt with [problem]." "What have you tried?" "How much did that cost you?" Real stories > hypothetical interest.</p>
+    </div>
+
+    <div class="checklist-item">
+        <h3><span class="step-number">3</span> Competitor Analysis</h3>
+        <p>If there are zero competitors, that's a red flag (no market). If there are too many, find your wedge. Map: Who are the top 5 players? What do users complain about? What's your 10x better angle?</p>
+    </div>
+
+    <div class="checklist-item">
+        <h3><span class="step-number">4</span> Market Sizing (TAM/SAM/SOM)</h3>
+        <p><strong>TAM:</strong> Total market if you had 100% share. <strong>SAM:</strong> Segment you can realistically reach. <strong>SOM:</strong> What you can capture in 1-2 years. If SOM < $1M ARR potential, reconsider the business model.</p>
+    </div>
+
+    <div class="checklist-item">
+        <h3><span class="step-number">5</span> The "One Feature" Rule</h3>
+        <p>Can you describe your product's core value in ONE sentence? If you need "and" or "also," you're building too much. V1 should do ONE thing exceptionally well.</p>
+    </div>
+
+    <div class="checklist-item">
+        <h3><span class="step-number">6</span> Pre-Sell or Waitlist</h3>
+        <p>Create a landing page. Collect emails. Goal: 100 signups before writing code. If you can't get 100 people interested, you have a marketing problem (or a product-market fit problem).</p>
+    </div>
+
+    <div class="checklist-item">
+        <h3><span class="step-number">7</span> Define Success Metrics</h3>
+        <p>What does "success" look like in 90 days? Examples: 50 paying users, $5K MRR, 1000 DAU. Write it down. If you hit it, keep going. If not, pivot or kill.</p>
+    </div>
+
+    <!-- ============================================ -->
+    <!-- SECTION 2: TECH STACK DECISION MATRIX -->
+    <!-- ============================================ -->
+    <h2>Part 2: Tech Stack Decision Matrix</h2>
+    <p style="color: #6b7280; margin-bottom: 24px;">Choose the right technology based on your product type, budget, and scaling needs.</p>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Product Type</th>
+                <th>Recommended Stack</th>
+                <th>Why</th>
+                <th>Avoid</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><strong>SaaS Dashboard</strong></td>
+                <td>Next.js + Supabase + Vercel</td>
+                <td>Fast deployment, built-in auth, scales automatically</td>
+                <td>WordPress, PHP</td>
+            </tr>
+            <tr class="highlight-row">
+                <td><strong>Mobile App (MVP)</strong></td>
+                <td>React Native + Firebase</td>
+                <td>One codebase for iOS + Android, rapid iteration</td>
+                <td>Native (Swift/Kotlin) for V1</td>
+            </tr>
+            <tr>
+                <td><strong>E-Commerce</strong></td>
+                <td>Shopify OR Next.js + Stripe</td>
+                <td>Shopify for speed, custom for control</td>
+                <td>WooCommerce (scaling issues)</td>
+            </tr>
+            <tr>
+                <td><strong>Marketplace</strong></td>
+                <td>Next.js + PostgreSQL + Stripe Connect</td>
+                <td>Complex payment splits, need full control</td>
+                <td>No-code tools (hit limits fast)</td>
+            </tr>
+            <tr>
+                <td><strong>AI/ML Product</strong></td>
+                <td>Python (FastAPI) + React + OpenAI/Hugging Face</td>
+                <td>Python ecosystem for ML, React for UI</td>
+                <td>Overengineering infra before PMF</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div class="checklist-item">
+        <h3><span class="checkbox"></span> Database Decision</h3>
+        <p><strong>PostgreSQL:</strong> Relational data, complex queries, financial data. <strong>MongoDB:</strong> Flexible schemas, rapid prototyping. <strong>Supabase:</strong> PostgreSQL + Auth + Realtime in one.</p>
+    </div>
+
+    <div class="checklist-item">
+        <h3><span class="checkbox"></span> Hosting Decision</h3>
+        <p><strong>Vercel:</strong> Best for Next.js, auto-scaling, free tier. <strong>Railway:</strong> Great for backends, databases. <strong>AWS:</strong> Only if you need enterprise compliance (SOC2, HIPAA).</p>
+    </div>
+
+    <!-- ============================================ -->
+    <!-- SECTION 3: BUDGET ESTIMATION TEMPLATE -->
+    <!-- ============================================ -->
+    <h2>Part 3: Budget Estimation Template</h2>
+    <p style="color: #6b7280; margin-bottom: 24px;">Realistic cost ranges based on 2024 market rates. Includes development, design, and infrastructure.</p>
+
+    <div class="budget-grid">
+        <div class="budget-card">
+            <h4>Lean MVP</h4>
+            <p class="price">$3-8K</p>
+            <p class="desc">Landing page + core feature + basic auth. 2-4 weeks.</p>
+        </div>
+        <div class="budget-card recommended">
+            <h4>Standard MVP</h4>
+            <p class="price">$8-20K</p>
+            <p class="desc">Full app + admin panel + integrations. 4-8 weeks.</p>
+        </div>
+        <div class="budget-card">
+            <h4>Enterprise MVP</h4>
+            <p class="price">$20-50K</p>
+            <p class="desc">Custom design + complex features + compliance. 8-16 weeks.</p>
+        </div>
+    </div>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Cost Category</th>
+                <th>Lean</th>
+                <th>Standard</th>
+                <th>Enterprise</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>UI/UX Design</td>
+                <td>$500-1K (templates)</td>
+                <td>$2-5K (custom)</td>
+                <td>$5-15K (agency-level)</td>
+            </tr>
+            <tr>
+                <td>Frontend Development</td>
+                <td>$1-3K</td>
+                <td>$3-8K</td>
+                <td>$8-20K</td>
+            </tr>
+            <tr>
+                <td>Backend Development</td>
+                <td>$1-3K</td>
+                <td>$3-8K</td>
+                <td>$8-15K</td>
+            </tr>
+            <tr>
+                <td>Infrastructure (Year 1)</td>
+                <td>$0-500</td>
+                <td>$500-2K</td>
+                <td>$2-10K</td>
+            </tr>
+            <tr>
+                <td>Third-Party Services</td>
+                <td>$100-500</td>
+                <td>$500-2K</td>
+                <td>$2-5K</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div class="checklist-item">
+        <h3><span class="checkbox"></span> Hidden Costs to Budget For</h3>
+        <p>✓ App Store fees ($99/year iOS, $25 one-time Android)<br>
+        ✓ Domain + SSL ($20-100/year)<br>
+        ✓ Email service (SendGrid/Resend: $0-50/month)<br>
+        ✓ Analytics (PostHog/Mixpanel: $0-100/month)<br>
+        ✓ Error tracking (Sentry: $0-30/month)</p>
+    </div>
+
+    <!-- ============================================ -->
+    <!-- SECTION 4: TIMELINE PLANNING WORKSHEET -->
+    <!-- ============================================ -->
+    <h2>Part 4: Timeline Planning Worksheet</h2>
+    <p style="color: #6b7280; margin-bottom: 24px;">A realistic timeline for shipping your MVP. Add 20% buffer for unexpected issues.</p>
+
+    <div class="timeline">
+        <div class="timeline-item">
+            <h4>Phase 1: Discovery & Planning</h4>
+            <p>Requirements gathering, user stories, wireframes, tech stack decisions, project setup.</p>
+            <span class="duration">Week 1</span>
+        </div>
+        <div class="timeline-item">
+            <h4>Phase 2: Design</h4>
+            <p>UI/UX design, component library, design system, prototyping, user testing.</p>
+            <span class="duration">Week 2-3</span>
+        </div>
+        <div class="timeline-item">
+            <h4>Phase 3: Core Development</h4>
+            <p>Authentication, database schema, core features, API development, frontend build.</p>
+            <span class="duration">Week 3-6</span>
+        </div>
+        <div class="timeline-item">
+            <h4>Phase 4: Integration & Polish</h4>
+            <p>Third-party integrations (payments, email, analytics), bug fixes, performance optimization.</p>
+            <span class="duration">Week 6-7</span>
+        </div>
+        <div class="timeline-item">
+            <h4>Phase 5: Testing & Launch</h4>
+            <p>QA testing, beta user feedback, deployment, monitoring setup, launch!</p>
+            <span class="duration">Week 7-8</span>
+        </div>
+    </div>
+
+    <div class="checklist-item">
+        <h3><span class="checkbox"></span> Pre-Launch Checklist</h3>
+        <p>□ Legal: Privacy Policy, Terms of Service<br>
+        □ Analytics: Tracking installed and tested<br>
+        □ Monitoring: Error tracking + uptime alerts<br>
+        □ Backup: Database backup strategy<br>
+        □ Security: HTTPS, secure auth, input validation<br>
+        □ Performance: Core Web Vitals passing<br>
+        □ Mobile: Responsive design tested</p>
+    </div>
+
+    <!-- ============================================ -->
+    <!-- SECTION 5: COMMON MISTAKES TO AVOID -->
+    <!-- ============================================ -->
+    <h2>Part 5: Common Mistakes to Avoid</h2>
+    <p style="color: #6b7280; margin-bottom: 24px;">These mistakes kill 90% of MVPs. Learn from others' failures.</p>
+
+    <div class="mistake-item">
+        <div class="mistake-icon">1</div>
+        <div class="mistake-content">
+            <h4>Building Before Validating</h4>
+            <p>Spending 6 months building something nobody wants. The graveyard of startups is full of "great ideas."</p>
+            <div class="fix"><strong>Fix:</strong> Validate with landing page + waitlist. Get 100 signups before writing code.</div>
+        </div>
+    </div>
+
+    <div class="mistake-item">
+        <div class="mistake-icon">2</div>
+        <div class="mistake-content">
+            <h4>Feature Creep</h4>
+            <p>"Just one more feature" syndrome. Your MVP becomes a 12-month project that never ships.</p>
+            <div class="fix"><strong>Fix:</strong> Define V1 scope in writing. Anything else goes to V2 backlog. Ship in 8 weeks max.</div>
+        </div>
+    </div>
+
+    <div class="mistake-item">
+        <div class="mistake-icon">3</div>
+        <div class="mistake-content">
+            <h4>Premature Scaling</h4>
+            <p>Building for 1M users when you have 10. Over-engineering infrastructure, microservices, etc.</p>
+            <div class="fix"><strong>Fix:</strong> Build for 1,000 users. Optimize later. "Do things that don't scale" - Paul Graham.</div>
+        </div>
+    </div>
+
+    <div class="mistake-item">
+        <div class="mistake-icon">4</div>
+        <div class="mistake-content">
+            <h4>Ignoring Analytics</h4>
+            <p>Launching without tracking. Flying blind. No idea what's working or why users churn.</p>
+            <div class="fix"><strong>Fix:</strong> Install analytics on Day 1. Track: signups, activation, retention, revenue.</div>
+        </div>
+    </div>
+
+    <div class="mistake-item">
+        <div class="mistake-icon">5</div>
+        <div class="mistake-content">
+            <h4>Choosing the Wrong Tech Stack</h4>
+            <p>Using cutting-edge tech for the sake of it. Hiring becomes impossible. Maintenance nightmare.</p>
+            <div class="fix"><strong>Fix:</strong> Use boring, proven tech. React, Node, PostgreSQL. Save innovation for your product, not your stack.</div>
+        </div>
+    </div>
+
+    <div class="mistake-item">
+        <div class="mistake-icon">6</div>
+        <div class="mistake-content">
+            <h4>No Feedback Loop</h4>
+            <p>Building in isolation. No user testing until launch. Surprise: users hate it.</p>
+            <div class="fix"><strong>Fix:</strong> Share progress weekly. Get 5 beta users by Week 3. Iterate based on real feedback.</div>
+        </div>
+    </div>
+
+    <!-- ============================================ -->
+    <!-- FOOTER -->
+    <!-- ============================================ -->
+    <div class="footer">
+        <p>© 2025 Mohammad Shaban. All rights reserved.</p>
+        <p style="font-size: 16px; color: #111827; margin-bottom: 24px;">
+            <strong>Ready to build your MVP the right way?</strong>
+        </p>
+        <a href="https://cal.com/mohammad-shaban-1dc27o/30min" class="btn">Book a Free Strategy Call</a>
+        <a href="javascript:window.print()" class="btn btn-outline">Save as PDF</a>
+    </div>
+
+</body>
+</html>

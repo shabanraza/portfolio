@@ -1,0 +1,196 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;500;700&family=Syne:wght@400;500;600;700;800&display=swap');
+@import "tailwindcss";
+
+:root {
+  /* Base (Dark Theme Defaults - Emerald Teal) */
+  --color-background-raw: #050a0a; /* Deep Teal-Black */
+  --color-surface-raw: #0f1616; /* Slightly lighter */
+  --color-surface-highlight-raw: #162121;
+  
+  /* Premium Teal Palette */
+  --color-primary-raw: #2dd4bf; /* Teal-400 (Glowing Emerald) */
+  --color-primary-light-raw: #5eead4; /* Teal-300 */
+  --color-primary-dark-raw: #14b8a6; /* Teal-500 */
+  
+  --color-secondary-raw: #f0fdfa; /* Teal-50 (Cool white) */
+  --color-muted-raw: #99f6e4; /* Teal-200 (Soft muted teal) */
+  --bg-gradient-raw: linear-gradient(to bottom, #020404, #050a0a);
+  
+  /* Semantic Colors (Mapped) */
+  --color-background: var(--color-background-raw);
+  --color-surface: var(--color-surface-raw);
+  --color-surface-highlight: var(--color-surface-highlight-raw);
+  --color-primary: var(--color-primary-raw);
+  --color-primary-light: var(--color-primary-light-raw);
+  --color-primary-dark: var(--color-primary-dark-raw);
+  --color-secondary: var(--color-secondary-raw);
+  --color-muted: #9ca3af; /* Neutral Gray for body text (easier reading) */
+  --color-foreground: #ffffff;
+  --color-border: rgba(45, 212, 191, 0.1); /* Teal border tint */
+  --logo-filter: brightness(0) invert(1);
+  --bg-gradient: var(--bg-gradient-raw);
+
+  font-family: "DM Sans", sans-serif;
+  line-height: 1.6;
+  font-weight: 400;
+
+  color-scheme: dark;
+  color: var(--color-secondary);
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+:root.light {
+  /* Light Theme Overrides - Clean Mint */
+  --color-background: #ffffff;
+  --color-surface: #f0fdfa; /* Teal-50 */
+  --color-surface-highlight: #ccfbf1; /* Teal-100 */
+  
+  --color-primary: #0d9488; /* Teal-600 (Readable on white) */
+  --color-primary-light: #14b8a6; 
+  --color-primary-dark: #0f766e;
+  
+  --color-secondary: #134e4a; /* Teal-900 */
+  --color-muted: #64748b; /* Slate-500 */
+  --color-foreground: #042f2e;
+  --color-border: rgba(13, 148, 136, 0.1);
+  --logo-filter: brightness(0) invert(0);
+  --bg-gradient: linear-gradient(to bottom, #ffffff, #f0fdfa);
+  
+  color-scheme: light;
+}
+
+@theme {
+  --color-background: var(--color-background);
+  --color-surface: var(--color-surface);
+  --color-surface-highlight: var(--color-surface-highlight);
+  
+  --color-primary: var(--color-primary);
+  --color-primary-light: var(--color-primary-light);
+  --color-primary-dark: var(--color-primary-dark);
+  
+  --color-secondary: var(--color-secondary);
+  --color-muted: var(--color-muted);
+  --color-foreground: var(--color-foreground);
+  --color-border: var(--color-border);
+  
+  --font-display: "Syne", sans-serif;
+  --font-body: "DM Sans", sans-serif;
+  
+  --animate-fade-in: fadeIn 0.8s ease-out forwards;
+  --animate-slide-up: slideUp 0.8s ease-out forwards;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  min-height: 100vh;
+  background: transparent;
+  color: var(--color-secondary);
+  position: relative;
+  overflow-x: hidden;
+  transition: color 0.3s ease;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-display);
+  font-weight: 700;
+  color: var(--color-foreground);
+}
+
+/* Utility Classes */
+.text-display { font-family: var(--font-display); }
+.text-body { font-family: var(--font-body); }
+.text-gold { color: var(--color-primary); } /* Backward compat */
+.bg-gold { background-color: var(--color-primary); }
+
+/* Editorial Grid */
+.editorial-grid {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: 1.5rem;
+}
+
+/* Glass Effect */
+.glass-panel {
+  background: rgba(15, 22, 22, 0.6); /* Dark Teal Tint */
+  backdrop-filter: blur(12px);
+  border: 1px solid var(--color-border);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+}
+
+:root.light .glass-panel {
+  background: rgba(255, 255, 255, 0.7);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.05);
+}
+
+.glass-panel-hover { transition: all 0.3s ease; }
+
+.glass-panel-hover:hover {
+  border-color: rgba(45, 212, 191, 0.3); /* Teal glow */
+  background: rgba(15, 22, 22, 0.8);
+  transform: translateY(-2px);
+}
+
+:root.light .glass-panel-hover:hover {
+  background: rgba(255, 255, 255, 0.9);
+}
+
+/* Typography */
+.heading-xl {
+  font-size: clamp(3rem, 8vw, 5rem);
+  line-height: 1;
+  letter-spacing: -0.02em;
+  font-weight: 700;
+  color: var(--color-foreground);
+}
+
+.heading-lg {
+  font-size: clamp(2.5rem, 5vw, 3.5rem);
+  line-height: 1.1;
+  letter-spacing: -0.01em;
+  font-weight: 700;
+  color: var(--color-foreground);
+}
+
+.heading-md {
+  font-size: clamp(1.5rem, 3vw, 2.25rem);
+  line-height: 1.2;
+  font-weight: 600;
+  color: var(--color-foreground);
+}
+
+.text-lead {
+  font-size: 1.25rem;
+  color: var(--color-muted);
+  font-weight: 400;
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Selection */
+::selection {
+  background-color: rgba(45, 212, 191, 0.3); /* Teal selection */
+  color: var(--color-foreground);
+}
+
+/* Scrollbar */
+::-webkit-scrollbar { width: 8px; }
+::-webkit-scrollbar-track { background: var(--color-background); }
+::-webkit-scrollbar-thumb {
+  background: var(--color-surface-highlight);
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover { background: var(--color-primary); }
