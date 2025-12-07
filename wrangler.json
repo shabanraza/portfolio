@@ -7,7 +7,6 @@
   },
   "observability": {
     "enabled": true
-  },
-  "main": "dist/index.html"
+  }
 }
 
