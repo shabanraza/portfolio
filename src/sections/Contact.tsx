@@ -6,6 +6,8 @@ import { Mail, Calendar, Send, CheckCircle2, Clock } from 'lucide-react';
 import { getCalApi } from "@calcom/embed-react";
 import { sendEmail } from '../utils/email';
 
+import whatsappIcon from '../assets/whatsapp.png';
+
 export const Contact = () => {
   const [activeTab, setActiveTab] = useState<'form' | 'calendar'>('calendar');
   const [name, setName] = useState('');
@@ -90,10 +92,8 @@ export const Contact = () => {
                   rel="noopener noreferrer"
                   className="flex items-center gap-4 p-4 bg-[#25D366]/10 border border-[#25D366]/20 rounded-xl hover:bg-[#25D366]/20 transition-all group"
                >
-                  {/* WhatsApp Icon SVG */}
-                  <svg viewBox="0 0 24 24" className="w-6 h-6 fill-[#25D366]" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.536 0 1.52 1.115 2.988 1.264 3.186.149.198 2.19 3.361 5.27 4.693 2.151.921 2.594.733 3.04.688.446-.046 1.436-.606 1.634-1.191.198-.586.198-1.088.139-1.191-.059-.102-.238-.163-.535-.312M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0m.056 19.755a8.03 8.03 0 0 1-4.02-.952l-.287-.16-3.03.8.808-2.953-.188-.309a8.03 8.03 0 0 1-.006-7.947 8.03 8.03 0 0 1 6.723 11.52"/>
-                  </svg>
+                  {/* WhatsApp Icon */}
+                  <img src={whatsappIcon} alt="WhatsApp" className="w-6 h-6" />
                   <div>
                      <p className="text-[#25D366] font-bold group-hover:text-[var(--color-foreground)] transition-colors">Chat on WhatsApp</p>
                      <p className="text-[var(--color-muted)] text-xs">+91 8010474045</p>
@@ -158,6 +158,9 @@ export const Contact = () => {
                       >
                         Open Calendar
                       </Button>
+                      <p className="text-xs text-[var(--color-muted)] mt-4">
+                        Having trouble? <a href="https://cal.com/mohammad-shaban-1dc27o/30min" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">Book directly on Cal.com</a>
+                      </p>
                    </div>
                 </div>
               ) : (
