@@ -81,10 +81,13 @@ export const About = () => {
 
           <div className="space-y-6 text-[var(--color-muted)] text-lg leading-relaxed mb-8">
             <p>
-              I am a Senior Software Developer with over a decade of experience building high-performance web and mobile applications. I specialize in React.js, Node.js, and scalable frontend architectures.
+              By day I engineer for clients; by night I ship my own SaaS products. A decade of turning ideas
+              into production code across React, Node, and mobile.
             </p>
             <p>
-              My background includes delivering enterprise-grade solutions for global companies like GlobalLogic and Iris Software. I focus on performance optimization, code reusability, and delivering clean, testable code.
+              I specialize in scalable frontend architectures and high-performance web &amp; mobile apps.
+              My background includes enterprise work for GlobalLogic and Iris Software, alongside the
+              side products I build and run.
             </p>
           </div>
 

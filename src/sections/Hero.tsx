@@ -1,7 +1,8 @@
 import { motion } from 'framer-motion';
-import { ArrowRight, Flame } from 'lucide-react';
+import { ArrowRight } from 'lucide-react';
 import { Button } from '../components/ui/Button';
 import { Section } from '../components/ui/Section';
+import { RevealText } from '../components/ui/RevealText';
 import { Link } from 'react-scroll';
 import { HeroVisual } from '../components/HeroVisual';
 
@@ -25,28 +26,16 @@ export const Hero = () => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
         >
-          {/* Scarcity Badge */}
-          <motion.div
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ delay: 0.1, duration: 0.5 }}
-            className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-red-500/10 border border-red-500/20 text-red-400 text-sm font-medium mb-6 w-fit"
-          >
-            <Flame className="w-4 h-4 animate-pulse" />
-            <span>Only 2 spots left for January</span>
-          </motion.div>
-
           <motion.div
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
-            transition={{ delay: 0.2, duration: 0.8 }}
-            className="flex items-center gap-4 mb-8"
+            transition={{ delay: 0.1, duration: 0.8 }}
+            className="flex items-center gap-4 mb-10"
           >
-            {/* Photo Placeholder */}
             <div className="w-16 h-16 rounded-full bg-[var(--color-surface-highlight)] border-2 border-[var(--color-border)] flex items-center justify-center shrink-0 overflow-hidden relative">
-               <img 
-                 src="/me.png" 
-                 alt="Mohammad Shaban" 
+               <img
+                 src="/me.png"
+                 alt="Mohammad Shaban"
                  className="w-full h-full object-cover object-top"
                  width="64"
                  height="64"
@@ -54,27 +43,31 @@ export const Hero = () => {
             </div>
             <div className="flex flex-col">
               <span className="text-[var(--color-foreground)] font-bold">Mohammad Shaban</span>
-              <span className="text-primary text-sm font-medium tracking-wider uppercase">Full Stack & Mobile Developer</span>
+              <span className="text-primary text-sm font-medium tracking-wider uppercase">Engineer &amp; Builder</span>
             </div>
           </motion.div>
-          
+
           <h1 className="heading-xl text-[var(--color-foreground)] mb-8">
-            I turn your idea into a <span className="text-primary italic">shipped product.</span>
+            <RevealText as="span" className="block">I build</RevealText>
+            <RevealText as="span" className="block" delay={0.15}>
+              what I ship.
+            </RevealText>
           </h1>
-          
+
           <p className="text-lead max-w-xl mb-10 text-[var(--color-muted)]">
-            Stop struggling with fragmented development. I build high-performance web and mobile applications for startups, businesses, and agencies that need to launch.
+            Full-stack engineer shipping web and mobile apps for clients — and SaaS products on the side.
+            10+ years of turning ideas into production code.
           </p>
-          
+
           <div className="flex flex-col sm:flex-row gap-4 mb-16">
-            <Link to="contact" smooth={true} duration={500}>
-            <Button size="lg" className="w-full sm:w-auto group">
-              Let's Build Together <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
-            </Button>
+            <Link to="products" smooth={true} duration={500}>
+              <Button size="lg" className="w-full sm:w-auto group">
+                See My Products <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+              </Button>
             </Link>
-            <Link to="projects" smooth={true} duration={500}>
+            <Link to="contact" smooth={true} duration={500}>
               <Button variant="outline" size="lg" className="w-full sm:w-auto">
-                See My Work
+                Let's Talk
               </Button>
             </Link>
           </div>

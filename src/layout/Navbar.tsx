@@ -6,8 +6,8 @@ import { Button } from '../components/ui/Button';
 import { useTheme } from '../context/ThemeContext';
 
 const navItems = [
+  { name: 'Products', to: 'products' },
   { name: 'Work', to: 'projects' },
-  { name: 'Process', to: 'process' },
   { name: 'Services', to: 'services' },
   { name: 'About', to: 'about' },
 ];
