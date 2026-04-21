@@ -1,10 +1,10 @@
 import { useState, useEffect } from 'react';
 import { Section } from '../components/ui/Section';
-import { GlassCard } from '../components/ui/GlassCard';
 import { Button } from '../components/ui/Button';
-import { Mail, Calendar, Send, CheckCircle2, Clock } from 'lucide-react';
+import { Mail, Calendar, Send, CheckCircle2, Clock, Terminal } from 'lucide-react';
 import { getCalApi } from "@calcom/embed-react";
 import { sendEmail } from '../utils/email';
+import { openCommandPalette } from '../components/CommandPalette';
 
 export const Contact = () => {
   const [activeTab, setActiveTab] = useState<'form' | 'calendar'>('calendar');
@@ -136,7 +136,7 @@ export const Contact = () => {
                </button>
             </div>
 
-            <GlassCard className="p-0 overflow-hidden min-h-[500px] bg-[var(--color-surface)]">
+            <div className="rounded-2xl overflow-hidden min-h-[500px] bg-[var(--color-surface)] border border-[var(--color-border)]">
               {activeTab === 'calendar' ? (
                 <div className="w-full h-full min-h-[500px] flex flex-col items-center justify-center p-8 text-center">
                    <div className="max-w-md space-y-6">
@@ -218,7 +218,21 @@ export const Contact = () => {
                   </Button>
                 </form>
               )}
-            </GlassCard>
+            </div>
+
+            <button
+              type="button"
+              onClick={() => openCommandPalette()}
+              className="mt-4 w-full flex items-center justify-between px-4 py-3 rounded-xl bg-[var(--color-surface)] border border-[var(--color-border)] hover:border-primary/40 transition-colors group"
+            >
+              <span className="flex items-center gap-3 text-[var(--color-muted)] text-sm font-mono">
+                <Terminal className="w-4 h-4 text-primary" />
+                Rather type it in a terminal? Press
+              </span>
+              <kbd className="px-2 py-1 rounded-md bg-[var(--color-surface-highlight)] border border-[var(--color-border)] text-xs font-mono text-[var(--color-foreground)] group-hover:border-primary/40 transition-colors">
+                ⌘ K
+              </kbd>
+            </button>
           </div>
         </div>
       </div>
