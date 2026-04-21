@@ -2,7 +2,6 @@ import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Check, Layout, Rocket, Smartphone, Globe, Database, Plus } from 'lucide-react';
 import { Section } from '../components/ui/Section';
-import { GlassCard } from '../components/ui/GlassCard';
 import { Button } from '../components/ui/Button';
 import { Link } from 'react-scroll';
 
@@ -146,10 +145,10 @@ export const Services = () => {
 };
 
 const ServiceCard = ({ pkg }: { pkg: any }) => (
-  <GlassCard 
-    className={`h-full flex flex-col relative ${
-      pkg.recommended 
-        ? 'border-primary bg-primary/5 ring-1 ring-primary/20' 
+  <div
+    className={`h-full flex flex-col relative p-8 rounded-2xl bg-[var(--color-surface)] border transition-colors ${
+      pkg.recommended
+        ? 'border-primary/40 bg-primary/[0.03] ring-1 ring-primary/20'
         : 'border-[var(--color-border)] hover:border-primary/30'
     }`}
   >
@@ -195,12 +194,12 @@ const ServiceCard = ({ pkg }: { pkg: any }) => (
     </div>
     
     <Link to="contact" smooth={true} duration={500}>
-      <Button 
-        variant={pkg.recommended ? 'primary' : 'outline'} 
+      <Button
+        variant={pkg.recommended ? 'primary' : 'outline'}
         className="w-full"
       >
         Get Started
       </Button>
     </Link>
-  </GlassCard>
+  </div>
 );

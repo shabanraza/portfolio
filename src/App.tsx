@@ -1,5 +1,6 @@
 import { Suspense, lazy } from 'react';
 import { AuroraBackground } from './components/AuroraBackground';
+import { CommandPalette } from './components/CommandPalette';
 import { Navbar } from './layout/Navbar';
 import { Footer } from './layout/Footer';
 import { Hero } from './sections/Hero';
@@ -35,6 +36,7 @@ function App() {
 
       <Footer />
       <StickyCTA />
+      <CommandPalette />
     </div>
   );
 }

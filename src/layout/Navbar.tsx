@@ -4,6 +4,7 @@ import { Link } from 'react-scroll';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Button } from '../components/ui/Button';
 import { useTheme } from '../context/ThemeContext';
+import { openCommandPalette } from '../components/CommandPalette';
 
 const navItems = [
   { name: 'Products', to: 'products' },
@@ -73,8 +74,17 @@ export const Navbar = () => {
             </Link>
           ))}
           
-          <button 
-            onClick={toggleTheme} 
+          <button
+            onClick={() => openCommandPalette()}
+            aria-label="Open contact terminal"
+            className="hidden lg:inline-flex items-center gap-2 px-3 py-1.5 rounded-lg bg-[var(--color-surface)] border border-[var(--color-border)] hover:border-primary/40 text-xs font-mono text-[var(--color-muted)] hover:text-[var(--color-foreground)] transition-colors"
+          >
+            <span>contact</span>
+            <kbd className="text-[10px] text-[var(--color-muted)]">⌘K</kbd>
+          </button>
+
+          <button
+            onClick={toggleTheme}
             className="p-2 rounded-full hover:bg-[var(--color-surface)] transition-colors text-[var(--color-foreground)]"
             aria-label="Toggle theme"
           >
