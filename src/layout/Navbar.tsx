@@ -1,150 +1,94 @@
 import { useState, useEffect } from 'react';
-import { Menu, X, Sun, Moon } from 'lucide-react';
-import { Link } from 'react-scroll';
-import { motion, AnimatePresence } from 'framer-motion';
-import { Button } from '../components/ui/Button';
-import { useTheme } from '../context/ThemeContext';
-import { openCommandPalette } from '../components/CommandPalette';
 
-const navItems = [
-  { name: 'Products', to: 'products' },
-  { name: 'Work', to: 'projects' },
-  { name: 'Services', to: 'services' },
-  { name: 'About', to: 'about' },
-];
+interface NavbarProps {
+  onCmd: () => void;
+  onTweaks: () => void;
+}
 
-export const Navbar = () => {
-  const [isOpen, setIsOpen] = useState(false);
+export const Navbar = ({ onCmd, onTweaks }: NavbarProps) => {
   const [scrolled, setScrolled] = useState(false);
-  const { theme, toggleTheme } = useTheme();
 
   useEffect(() => {
-    const handleScroll = () => {
-      setScrolled(window.scrollY > 50);
-    };
+    const handleScroll = () => setScrolled(window.scrollY > 20);
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  const navLinks = ['saas', 'work', 'about', 'now', 'contact'];
+
   return (
-    <nav
-      className={`fixed top-0 w-full z-50 transition-all duration-300 ${
-        scrolled 
-          ? 'bg-[var(--color-background)]/80 backdrop-blur-xl border-b border-[var(--color-border)] py-4' 
-          : 'bg-transparent py-6'
-      }`}
+    <div
+      className="sticky top-0 z-50 transition-all duration-200"
+      style={{
+        background: scrolled ? 'color-mix(in srgb, var(--t-bg) 85%, transparent)' : 'transparent',
+        backdropFilter: scrolled ? 'blur(12px)' : 'none',
+        borderBottom: `1px solid ${scrolled ? 'var(--t-border)' : 'transparent'}`,
+      }}
     >
-      <div className="max-w-7xl mx-auto px-4 md:px-8 flex justify-between items-center">
-        <div className="flex items-center gap-8">
-          <Link
-            to="hero"
-            smooth={true}
-            duration={500}
-            className="cursor-pointer z-50"
-          >
-            <span className="font-display font-bold text-2xl text-[var(--color-foreground)] tracking-tight transition-colors">
-              SHABAN<span className="text-primary">.DEV</span>
-            </span>
-          </Link>
-
-          {/* Availability Badge */}
-          <div className="hidden md:flex items-center gap-2 px-3 py-1 rounded-full bg-green-500/10 border border-green-500/20">
-            <span className="relative flex h-2 w-2">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
-              <span className="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
-            </span>
-            <span className="text-xs font-medium text-green-500 uppercase tracking-wide">Available for Projects</span>
-          </div>
+      <div className="flex items-center justify-between px-6 md:px-10 py-3.5 text-[13px] max-w-[1400px] mx-auto">
+        <div className="flex items-center gap-6">
+          <a href="#" className="flex items-center gap-2 no-underline">
+            <span style={{ color: 'var(--t-accent)' }}>●</span>
+            <span style={{ color: 'var(--t-dim)' }}>~/</span>
+            <span className="font-semibold" style={{ color: 'var(--t-text)' }}>shaban</span>
+            <span style={{ color: 'var(--t-dim)' }}>$</span>
+          </a>
+          <nav className="hidden md:flex gap-5">
+            {navLinks.map(x => (
+              <a
+                key={x}
+                href={`#${x}`}
+                className="no-underline transition-colors duration-150"
+                style={{ color: 'var(--t-dim)' }}
+                onMouseEnter={e => (e.currentTarget.style.color = 'var(--t-accent)')}
+                onMouseLeave={e => (e.currentTarget.style.color = 'var(--t-dim)')}
+              >
+                ./{x}
+              </a>
+            ))}
+          </nav>
         </div>
-
-        {/* Desktop Menu */}
-        <div className="hidden md:flex items-center gap-8">
-          {navItems.map((item) => (
-            <Link
-              key={item.name}
-              to={item.to}
-              spy={true}
-              smooth={true}
-              offset={-100}
-              duration={500}
-              activeClass="text-primary"
-              className="text-sm font-medium text-[var(--color-muted)] hover:text-[var(--color-foreground)] cursor-pointer transition-colors"
-            >
-              {item.name}
-            </Link>
-          ))}
-          
-          <button
-            onClick={() => openCommandPalette()}
-            aria-label="Open contact terminal"
-            className="hidden lg:inline-flex items-center gap-2 px-3 py-1.5 rounded-lg bg-[var(--color-surface)] border border-[var(--color-border)] hover:border-primary/40 text-xs font-mono text-[var(--color-muted)] hover:text-[var(--color-foreground)] transition-colors"
+        <div className="flex gap-3 items-center">
+          <span
+            className="hidden lg:flex items-center gap-1.5 text-xs"
+            style={{ color: 'var(--t-dim)' }}
           >
-            <span>contact</span>
-            <kbd className="text-[10px] text-[var(--color-muted)]">⌘K</kbd>
-          </button>
-
+            <span
+              className="w-2 h-2 rounded-full"
+              style={{
+                background: 'var(--t-accent)',
+                boxShadow: '0 0 8px var(--t-accent)',
+              }}
+            />
+            open to work
+          </span>
           <button
-            onClick={toggleTheme}
-            className="p-2 rounded-full hover:bg-[var(--color-surface)] transition-colors text-[var(--color-foreground)]"
-            aria-label="Toggle theme"
+            onClick={onCmd}
+            className="flex items-center gap-2 px-2.5 py-1.5 rounded cursor-pointer text-xs"
+            style={{
+              background: 'var(--t-panel)',
+              border: '1px solid var(--t-border)',
+              color: 'var(--t-dim)',
+              fontFamily: 'inherit',
+            }}
           >
-            {theme === 'dark' ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
+            <span>⌘K</span>
           </button>
-
-          <Link to="contact" smooth={true} duration={500}>
-            <Button size="sm" variant="primary">
-              Book a Call
-            </Button>
-          </Link>
-        </div>
-
-        {/* Mobile Toggle & Menu Button */}
-        <div className="flex items-center gap-4 md:hidden z-50">
-            <button 
-                onClick={toggleTheme} 
-                className="p-2 rounded-full hover:bg-[var(--color-surface)] transition-colors text-[var(--color-foreground)]"
-            >
-                {theme === 'dark' ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
-            </button>
-            <button
-              onClick={() => setIsOpen(!isOpen)}
-              className="text-[var(--color-foreground)]"
-            >
-              {isOpen ? <X /> : <Menu />}
-            </button>
+          <button
+            onClick={onTweaks}
+            title="Tweaks"
+            className="px-2.5 py-1.5 rounded cursor-pointer text-xs"
+            style={{
+              background: 'var(--t-panel)',
+              border: '1px solid var(--t-border)',
+              color: 'var(--t-dim)',
+              fontFamily: 'inherit',
+            }}
+          >
+            ⚙
+          </button>
         </div>
       </div>
-
-      {/* Mobile Menu */}
-      <AnimatePresence>
-        {isOpen && (
-          <motion.div
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            className="fixed inset-0 bg-[var(--color-background)] z-40 flex items-center justify-center md:hidden"
-          >
-            <div className="flex flex-col items-center gap-8">
-              {navItems.map((item) => (
-                <Link
-                  key={item.name}
-                  to={item.to}
-                  smooth={true}
-                  offset={-100}
-                  duration={500}
-                  onClick={() => setIsOpen(false)}
-                  className="text-2xl font-display font-bold text-[var(--color-foreground)] hover:text-primary transition-colors"
-                >
-                  {item.name}
-                </Link>
-              ))}
-              <Link to="contact" smooth={true} duration={500} onClick={() => setIsOpen(false)}>
-                <Button size="lg">Let's Talk</Button>
-              </Link>
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
-    </nav>
+    </div>
   );
 };

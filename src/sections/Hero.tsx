@@ -1,141 +1,179 @@
-import { motion } from 'framer-motion';
-import { ArrowRight } from 'lucide-react';
-import { Button } from '../components/ui/Button';
-import { Section } from '../components/ui/Section';
-import { RevealText } from '../components/ui/RevealText';
-import { Link } from 'react-scroll';
-import { HeroVisual } from '../components/HeroVisual';
-
-// Assets
-import globalLogicLogo from '../assets/global_logic.svg';
-import hclLogo from '../assets/hcltech-new-logo.svg';
-import irisLogo from '../assets/Iris-logo.png.webp';
-import mobiloitteLogo from '../assets/mobiloitte new logo resized .avif';
+import { useState, useEffect, useMemo } from 'react';
+import { useTheme } from '../context/ThemeContext';
 
 export const Hero = () => {
+  const { settings } = useTheme();
+  const variant = settings.heroVariant;
+
+  const [typed, setTyped] = useState('');
+  const [phase, setPhase] = useState(0);
+
+  const commands = useMemo(() => [
+    { cmd: 'whoami', out: 'Mohammad Shaban — Senior Full-Stack Engineer · SaaS Builder' },
+    { cmd: 'cat ./bio.txt', out: 'By day I engineer for clients; by night I ship my own SaaS products. A decade of turning ideas into production code across React, Node, and mobile.' },
+    { cmd: 'ls ./shipped/', out: 'product-one/  product-two/  product-three/  +more' },
+    { cmd: 'git log --stat --since="10.years.ago"', out: '2,800+ commits this year alone\n400+ PRs reviewed · 60+ repos maintained' },
+    { cmd: './status.sh', out: '→ open to senior / staff engineering roles' },
+  ], []);
+
+  useEffect(() => {
+    if (phase >= commands.length) return;
+    const cmd = commands[phase].cmd;
+    let i = 0;
+    const id = setInterval(() => {
+      i++;
+      setTyped(cmd.slice(0, i));
+      if (i >= cmd.length) {
+        clearInterval(id);
+        setTimeout(() => { setPhase(p => p + 1); setTyped(''); }, 900);
+      }
+    }, 40);
+    return () => clearInterval(id);
+  }, [phase, commands]);
+
+  const terminal = (
+    <div
+      className="rounded-xl overflow-hidden self-start"
+      style={{
+        background: 'var(--t-bg2)',
+        border: '1px solid var(--t-border)',
+        boxShadow: '0 20px 60px rgba(0,0,0,0.6)',
+      }}
+    >
+      <div
+        className="flex items-center gap-[7px] px-3.5 py-2"
+        style={{ background: 'var(--t-panel)', borderBottom: '1px solid var(--t-border)' }}
+      >
+        <span className="w-3 h-3 rounded-full" style={{ background: '#ff5f57' }} />
+        <span className="w-3 h-3 rounded-full" style={{ background: '#febc2e' }} />
+        <span className="w-3 h-3 rounded-full" style={{ background: '#28c840' }} />
+        <span className="ml-3 text-xs" style={{ color: 'var(--t-dim)' }}>shaban@dev — zsh — 90x32</span>
+      </div>
+      <div className="p-5 text-[13px] leading-7 min-h-[420px]">
+        {commands.slice(0, phase).map((c, i) => (
+          <div key={i} className="mb-3.5">
+            <div>
+              <span style={{ color: 'var(--t-accent)' }}>➜</span>{' '}
+              <span style={{ color: 'var(--t-blue)' }}>~</span> {c.cmd}
+            </div>
+            <div className="pl-4 whitespace-pre-wrap" style={{ color: 'var(--t-dim)' }}>{c.out}</div>
+          </div>
+        ))}
+        {phase < commands.length ? (
+          <div>
+            <span style={{ color: 'var(--t-accent)' }}>➜</span>{' '}
+            <span style={{ color: 'var(--t-blue)' }}>~</span> {typed}
+            <span style={{ color: 'var(--t-accent)', animation: 'termblink 1s steps(2) infinite' }}>▊</span>
+          </div>
+        ) : (
+          <div>
+            <span style={{ color: 'var(--t-accent)' }}>➜</span>{' '}
+            <span style={{ color: 'var(--t-blue)' }}>~</span>{' '}
+            <span style={{ color: 'var(--t-accent)', animation: 'termblink 1s steps(2) infinite' }}>▊</span>
+          </div>
+        )}
+      </div>
+    </div>
+  );
+
+  const heroText = (
+    <div>
+      <div className="flex items-center gap-2.5 mb-5 text-[13px]" style={{ color: 'var(--t-dim)' }}>
+        <span
+          className="w-2 h-2 rounded-full"
+          style={{ background: 'var(--t-accent)', boxShadow: '0 0 10px var(--t-accent)' }}
+        />
+        open to work · Noida, IN
+      </div>
+      <h1
+        className="font-bold leading-none m-0"
+        style={{
+          fontSize: variant === 'stacked' ? 96 : 72,
+          letterSpacing: -2.5,
+          fontFamily: 'var(--t-mono)',
+        }}
+      >
+        <span style={{ color: 'var(--t-dim)' }}>$ </span>
+        Mohammad Shaban
+        <span style={{ color: 'var(--t-accent)' }}>.</span>
+      </h1>
+      <div className="text-[22px] mt-4 leading-relaxed" style={{ color: 'var(--t-dim)' }}>
+        Senior Full-Stack Engineer{' '}
+        <span style={{ color: 'var(--t-dimmer)' }}>//</span>{' '}
+        <span style={{ color: 'var(--t-amber)' }}>SaaS Builder</span>
+      </div>
+      <p className="mt-8 text-base leading-7 max-w-[560px]" style={{ color: 'var(--t-text)' }}>
+        10 years of building scalable software. By day I engineer for clients; by night I ship my
+        own products. React, Node, mobile — still in love with it.
+      </p>
+      <div className="mt-9 flex gap-3 flex-wrap">
+        <a
+          href="#contact"
+          className="px-5 py-3 font-semibold no-underline rounded-md text-sm inline-flex items-center gap-2"
+          style={{
+            background: 'var(--t-accent)',
+            color: 'var(--t-bg)',
+            boxShadow: '0 0 20px color-mix(in srgb, var(--t-accent) 27%, transparent)',
+          }}
+        >
+          ./hire_me.sh <span>→</span>
+        </a>
+        <a
+          href="#saas"
+          className="px-5 py-3 no-underline rounded-md text-sm"
+          style={{
+            background: 'transparent',
+            color: 'var(--t-text)',
+            border: '1px solid var(--t-border)',
+          }}
+        >
+          see products
+        </a>
+        <button
+          onClick={() => navigator.clipboard?.writeText('shaban.razaa@gmail.com')}
+          className="px-5 py-3 rounded-md text-sm cursor-pointer"
+          style={{
+            background: 'transparent',
+            color: 'var(--t-dim)',
+            border: '1px dashed var(--t-border)',
+            fontFamily: 'inherit',
+          }}
+        >
+          cp shaban.razaa@gmail.com
+        </button>
+      </div>
+      <div className="flex gap-6 mt-8 text-xs" style={{ color: 'var(--t-dimmer)' }}>
+        <span>↑ scroll</span>
+        <span>⌘K for commands</span>
+        <span>↑↑↓↓←→←→BA for a surprise</span>
+      </div>
+    </div>
+  );
+
+  if (variant === 'stacked') {
+    return (
+      <section className="px-6 md:px-10 pt-20 pb-10 max-w-[1200px] mx-auto">
+        {heroText}
+        <div className="mt-14">{terminal}</div>
+      </section>
+    );
+  }
+
+  if (variant === 'minimal') {
+    return (
+      <section className="px-6 md:px-10 pt-20 pb-10 max-w-[1200px] mx-auto">
+        {heroText}
+      </section>
+    );
+  }
+
+  // default: split
   return (
-    <Section id="hero" className="min-h-screen flex items-center pt-32 relative overflow-hidden bg-transparent">
-      {/* Subtle Background Elements - Adjusted for particle visibility */}
-      <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-primary/5 rounded-full blur-[120px] -translate-y-1/2 translate-x-1/3 -z-10" />
-      <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-primary/10 rounded-full blur-[120px] translate-y-1/2 -translate-x-1/3 -z-10" />
-      
-      <div className="grid lg:grid-cols-12 gap-12 items-center relative z-10 w-full">
-        <motion.div 
-          className="lg:col-span-7 flex flex-col justify-center"
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-        >
-          <motion.div
-            initial={{ opacity: 0, x: -20 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ delay: 0.1, duration: 0.8 }}
-            className="flex items-center gap-4 mb-10"
-          >
-            <div className="w-16 h-16 rounded-full bg-[var(--color-surface-highlight)] border-2 border-[var(--color-border)] flex items-center justify-center shrink-0 overflow-hidden relative">
-               <img
-                 src="/me.png"
-                 alt="Mohammad Shaban"
-                 className="w-full h-full object-cover object-top"
-                 width="64"
-                 height="64"
-               />
-            </div>
-            <div className="flex flex-col">
-              <span className="text-[var(--color-foreground)] font-bold">Mohammad Shaban</span>
-              <span className="text-primary text-sm font-medium tracking-wider uppercase">Engineer &amp; Builder</span>
-            </div>
-          </motion.div>
-
-          <h1 className="heading-xl text-[var(--color-foreground)] mb-8">
-            <RevealText as="span" className="block">I build</RevealText>
-            <RevealText as="span" className="block" delay={0.15}>
-              what I ship.
-            </RevealText>
-          </h1>
-
-          <p className="text-lead max-w-xl mb-10 text-[var(--color-muted)]">
-            Full-stack engineer shipping web and mobile apps for clients — and SaaS products on the side.
-            10+ years of turning ideas into production code.
-          </p>
-
-          <div className="flex flex-col sm:flex-row gap-4 mb-16">
-            <Link to="products" smooth={true} duration={500}>
-              <Button size="lg" className="w-full sm:w-auto group">
-                See My Products <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
-              </Button>
-            </Link>
-            <Link to="contact" smooth={true} duration={500}>
-              <Button variant="outline" size="lg" className="w-full sm:w-auto">
-                Let's Talk
-              </Button>
-            </Link>
-          </div>
-
-          {/* Enhanced Stats with Bigger Numbers */}
-          <div className="flex flex-wrap items-center gap-6 md:gap-8 border-t border-[var(--color-border)] pt-8">
-            <div>
-              <p className="text-3xl md:text-4xl font-bold text-[var(--color-foreground)] font-display">$2M+</p>
-              <p className="text-sm text-[var(--color-muted)] mt-1">Revenue Generated</p>
-            </div>
-            <div className="w-[1px] h-10 bg-[var(--color-border)] hidden md:block"></div>
-            <div>
-              <p className="text-3xl md:text-4xl font-bold text-[var(--color-foreground)] font-display">100K+</p>
-              <p className="text-sm text-[var(--color-muted)] mt-1">Users on Apps</p>
-            </div>
-            <div className="w-[1px] h-10 bg-[var(--color-border)] hidden md:block"></div>
-            <div>
-              <p className="text-3xl md:text-4xl font-bold text-[var(--color-foreground)] font-display">50+</p>
-              <p className="text-sm text-[var(--color-muted)] mt-1">Projects Shipped</p>
-            </div>
-            <div className="w-[1px] h-10 bg-[var(--color-border)] hidden md:block"></div>
-            <div>
-              <p className="text-3xl md:text-4xl font-bold text-[var(--color-foreground)] font-display">10+</p>
-              <p className="text-sm text-[var(--color-muted)] mt-1">Years Exp.</p>
-            </div>
-          </div>
-        </motion.div>
-
-        <motion.div
-          className="lg:col-span-5 relative hidden lg:block"
-          initial={{ opacity: 0, scale: 0.95 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.8, delay: 0.4 }}
-        >
-          <HeroVisual />
-        </motion.div>
+    <section className="px-6 md:px-10 pt-20 pb-10 relative">
+      <div className="max-w-[1280px] mx-auto grid lg:grid-cols-[1.2fr_1fr] gap-14 items-start">
+        {heroText}
+        {terminal}
       </div>
-
-      {/* Trusted By - Centered Below Hero Content */}
-      <div className="w-full mt-20 pt-12 border-t border-[var(--color-border)]">
-         <p className="text-xs text-[var(--color-muted)] uppercase tracking-widest mb-8 font-mono text-center">Trusted By</p>
-         <div className="flex flex-wrap justify-center gap-10 md:gap-16 items-center opacity-60 hover:opacity-100 transition-all duration-500">
-            <img 
-              src={globalLogicLogo} 
-              alt="GlobalLogic" 
-              className="h-8 w-auto object-contain"
-              style={{ filter: 'var(--logo-filter)' }}
-            />
-            <img 
-              src={irisLogo} 
-              alt="Iris Software" 
-              className="h-6 w-auto object-contain"
-              style={{ filter: 'var(--logo-filter)' }}
-            />
-            <img 
-              src={hclLogo} 
-              alt="HCLTech" 
-              className="h-5 w-auto object-contain"
-              style={{ filter: 'var(--logo-filter)' }}
-            />
-            <img 
-              src={mobiloitteLogo} 
-              alt="Mobiloitte" 
-              className="h-6 w-auto object-contain"
-              style={{ filter: 'var(--logo-filter)' }}
-            />
-         </div>
-      </div>
-    </Section>
+    </section>
   );
 };

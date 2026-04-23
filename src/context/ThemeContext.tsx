@@ -1,35 +1,59 @@
-import React, { createContext, useContext, useEffect, useState } from 'react';
+import { createContext, useContext, useEffect, useState, type ReactNode } from 'react';
 
-type Theme = 'dark' | 'light';
+type TerminalTheme = 'dark' | 'matrix' | 'amber';
+type FontPair = 'jetbrains' | 'geist' | 'plex';
+type HeroVariant = 'split' | 'stacked' | 'minimal';
+type Density = 'comfortable' | 'compact';
+
+interface TerminalSettings {
+  theme: TerminalTheme;
+  font: FontPair;
+  heroVariant: HeroVariant;
+  density: Density;
+}
 
 interface ThemeContextType {
-  theme: Theme;
-  toggleTheme: () => void;
+  settings: TerminalSettings;
+  updateSetting: <K extends keyof TerminalSettings>(key: K, value: TerminalSettings[K]) => void;
 }
+
+const defaults: TerminalSettings = {
+  theme: 'dark',
+  font: 'jetbrains',
+  heroVariant: 'split',
+  density: 'comfortable',
+};
 
 const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
 
-export const ThemeProvider = ({ children }: { children: React.ReactNode }) => {
-  const [theme, setTheme] = useState<Theme>(() => {
-    // Default to dark if no preference is saved, to match the original design
-    const saved = localStorage.getItem('theme');
-    if (saved === 'dark' || saved === 'light') return saved;
-    return 'dark'; // Force default dark for now
+export const ThemeProvider = ({ children }: { children: ReactNode }) => {
+  const [settings, setSettings] = useState<TerminalSettings>(() => {
+    try {
+      const saved = localStorage.getItem('terminal-settings');
+      if (saved) return { ...defaults, ...JSON.parse(saved) };
+    } catch { /* ignore */ }
+    return defaults;
   });
 
   useEffect(() => {
-    const root = window.document.documentElement;
-    root.classList.remove('light', 'dark');
-    root.classList.add(theme);
-    localStorage.setItem('theme', theme);
-  }, [theme]);
+    const root = document.documentElement;
+    // Theme class
+    root.classList.remove('theme-dark', 'theme-matrix', 'theme-amber');
+    root.classList.add(`theme-${settings.theme}`);
+    // Font class
+    root.classList.remove('font-geist', 'font-plex');
+    if (settings.font !== 'jetbrains') {
+      root.classList.add(`font-${settings.font}`);
+    }
+    localStorage.setItem('terminal-settings', JSON.stringify(settings));
+  }, [settings]);
 
-  const toggleTheme = () => {
-    setTheme((prev) => (prev === 'dark' ? 'light' : 'dark'));
+  const updateSetting = <K extends keyof TerminalSettings>(key: K, value: TerminalSettings[K]) => {
+    setSettings(prev => ({ ...prev, [key]: value }));
   };
 
   return (
-    <ThemeContext.Provider value={{ theme, toggleTheme }}>
+    <ThemeContext.Provider value={{ settings, updateSetting }}>
       {children}
     </ThemeContext.Provider>
   );
@@ -42,5 +66,3 @@ export const useTheme = () => {
   }
   return context;
 };
-
-
