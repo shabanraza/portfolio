@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
+  <rect width="32" height="32" rx="7" fill="#0a0a0b"/>
+  <text
+    x="16"
+    y="22"
+    text-anchor="middle"
+    font-family="ui-monospace, 'SF Mono', Menlo, monospace"
+    font-weight="700"
+    font-size="15"
+    letter-spacing="-0.5"
+    fill="#00ff88"
+  >MS</text>
+  <circle cx="26" cy="24" r="1.6" fill="#00ff88"/>
+</svg>
