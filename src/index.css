@@ -50,6 +50,22 @@
   --t-mono: 'JetBrains Mono', ui-monospace, Menlo, monospace;
 }
 
+.theme-light {
+  --t-bg: #fafaf8;
+  --t-bg2: #f4f4f1;
+  --t-panel: #ecebe7;
+  --t-border: #e0dfdb;
+  --t-text: #18181b;
+  --t-dim: #6b6b70;
+  --t-dimmer: #a1a1a6;
+  --t-accent: #059669;
+  --t-amber: #b45309;
+  --t-red: #b91c1c;
+  --t-blue: #1d4ed8;
+  --t-magenta: #7c3aed;
+  --t-mono: 'JetBrains Mono', ui-monospace, Menlo, monospace;
+}
+
 /* Font pair overrides */
 .font-geist { --t-mono: 'Geist Mono', ui-monospace, monospace; }
 .font-plex { --t-mono: 'IBM Plex Mono', ui-monospace, monospace; }

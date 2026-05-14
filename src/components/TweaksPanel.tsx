@@ -40,8 +40,8 @@ export const TweaksPanel = ({ onClose }: TweaksPanelProps) => {
         <TweakRow label="Theme">
           <Segmented
             value={settings.theme}
-            options={['dark', 'matrix', 'amber']}
-            onChange={v => updateSetting('theme', v as 'dark' | 'matrix' | 'amber')}
+            options={['dark', 'light', 'matrix', 'amber']}
+            onChange={v => updateSetting('theme', v as 'dark' | 'light' | 'matrix' | 'amber')}
           />
         </TweakRow>
         <TweakRow label="Mono font">

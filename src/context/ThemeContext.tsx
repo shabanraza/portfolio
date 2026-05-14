@@ -1,6 +1,6 @@
 import { createContext, useContext, useEffect, useState, type ReactNode } from 'react';
 
-type TerminalTheme = 'dark' | 'matrix' | 'amber';
+type TerminalTheme = 'dark' | 'matrix' | 'amber' | 'light';
 type FontPair = 'jetbrains' | 'geist' | 'plex';
 type HeroVariant = 'split' | 'stacked' | 'minimal';
 type Density = 'comfortable' | 'compact';
@@ -38,7 +38,7 @@ export const ThemeProvider = ({ children }: { children: ReactNode }) => {
   useEffect(() => {
     const root = document.documentElement;
     // Theme class
-    root.classList.remove('theme-dark', 'theme-matrix', 'theme-amber');
+    root.classList.remove('theme-dark', 'theme-matrix', 'theme-amber', 'theme-light');
     root.classList.add(`theme-${settings.theme}`);
     // Font class
     root.classList.remove('font-geist', 'font-plex');

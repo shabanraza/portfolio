@@ -23,3 +23,28 @@ dist-ssr
 *.sln
 *.sw?
 .env
+
+# Local tooling / agent caches
+.claude/
+.cursor/
+.playwright-mcp/
+.history/
+.turbo/
+.next/
+.cache/
+.parcel-cache/
+.vercel/
+.wrangler/
+
+# TypeScript build info
+*.tsbuildinfo
+
+# OS junk
+Thumbs.db
+Desktop.ini
+
+# Misc temp files
+*.bak
+*.tmp
+*.orig
+*.swp

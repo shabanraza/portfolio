@@ -9,7 +9,7 @@ export const Hero = () => {
   const [phase, setPhase] = useState(0);
 
   const commands = useMemo(() => [
-    { cmd: 'whoami', out: 'Mohammad Shaban — Senior Full-Stack Engineer · SaaS Builder' },
+    { cmd: 'whoami', out: 'Mohammad Shaban — Senior Full-Stack / AI Engineer · SaaS Builder' },
     { cmd: 'cat ./bio.txt', out: 'By day I engineer for clients; by night I ship my own SaaS products. A decade of turning ideas into production code across React, Node, and mobile.' },
     { cmd: 'ls ./shipped/', out: 'product-one/  product-two/  product-three/  +more' },
     { cmd: 'git log --stat --since="10.years.ago"', out: '2,800+ commits this year alone\n400+ PRs reviewed · 60+ repos maintained' },
@@ -98,7 +98,9 @@ export const Hero = () => {
         <span style={{ color: 'var(--t-accent)' }}>.</span>
       </h1>
       <div className="text-[22px] mt-4 leading-relaxed" style={{ color: 'var(--t-dim)' }}>
-        Senior Full-Stack Engineer{' '}
+        Senior Full-Stack{' '}
+        <span style={{ color: 'var(--t-dimmer)' }}>/</span>{' '}
+        <span style={{ color: 'var(--t-blue)' }}>AI Engineer</span>{' '}
         <span style={{ color: 'var(--t-dimmer)' }}>//</span>{' '}
         <span style={{ color: 'var(--t-amber)' }}>SaaS Builder</span>
       </div>
