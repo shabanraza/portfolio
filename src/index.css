@@ -1,74 +1,73 @@
 @import "tailwindcss";
 
-/* ─── Terminal Dark Theme (default) ─── */
 :root,
 .theme-dark {
-  --t-bg: #0a0a0b;
-  --t-bg2: #111113;
-  --t-panel: #16161a;
-  --t-border: #1f1f24;
-  --t-text: #e8e8e8;
-  --t-dim: #6e7681;
-  --t-dimmer: #484f58;
-  --t-accent: #00ff88;
-  --t-amber: #ffb347;
-  --t-red: #ff6b6b;
-  --t-blue: #79c0ff;
-  --t-magenta: #d2a8ff;
+  --t-bg: #0b0f14;
+  --t-bg2: #121922;
+  --t-panel: rgba(18, 25, 34, 0.8);
+  --t-panel-strong: #111a22;
+  --t-border: rgba(148, 163, 184, 0.18);
+  --t-text: #edf3f8;
+  --t-dim: #9aa7b4;
+  --t-dimmer: #6a7785;
+  --t-accent: #7ef9c5;
+  --t-amber: #f7b267;
+  --t-red: #ff7d7d;
+  --t-blue: #7ac1ff;
+  --t-magenta: #d8b4fe;
   --t-mono: 'JetBrains Mono', ui-monospace, Menlo, monospace;
 }
 
 .theme-matrix {
-  --t-bg: #03110a;
-  --t-bg2: #061a10;
-  --t-panel: #08241a;
-  --t-border: #0e3a28;
-  --t-text: #baffcf;
-  --t-dim: #5c9478;
-  --t-dimmer: #3a6651;
-  --t-accent: #00ff55;
-  --t-amber: #ffd23f;
-  --t-red: #ff6b6b;
-  --t-blue: #7ae0ff;
-  --t-magenta: #d08cff;
+  --t-bg: #07130e;
+  --t-bg2: #0b1d15;
+  --t-panel: rgba(11, 25, 18, 0.8);
+  --t-panel-strong: #0f241b;
+  --t-border: rgba(108, 176, 134, 0.25);
+  --t-text: #d6fbe1;
+  --t-dim: #8fbba4;
+  --t-dimmer: #5b7d66;
+  --t-accent: #6af5a5;
+  --t-amber: #ffd166;
+  --t-red: #ff7f7f;
+  --t-blue: #76d4ff;
+  --t-magenta: #d9a8ff;
   --t-mono: 'JetBrains Mono', ui-monospace, Menlo, monospace;
 }
 
 .theme-amber {
-  --t-bg: #0d0a05;
-  --t-bg2: #120f08;
-  --t-panel: #1a150b;
-  --t-border: #2a2111;
-  --t-text: #ffcf8a;
-  --t-dim: #8a6b3e;
-  --t-dimmer: #5c452a;
-  --t-accent: #ffb347;
-  --t-amber: #ffd23f;
-  --t-red: #ff6b6b;
-  --t-blue: #8ac6ff;
-  --t-magenta: #d08cff;
+  --t-bg: #120f0a;
+  --t-bg2: #1b180f;
+  --t-panel: rgba(29, 22, 13, 0.8);
+  --t-panel-strong: #201b12;
+  --t-border: rgba(248, 180, 103, 0.2);
+  --t-text: #f9f0df;
+  --t-dim: #ceb38d;
+  --t-dimmer: #9d865d;
+  --t-accent: #f7b267;
+  --t-amber: #f7d07a;
+  --t-red: #ff8b8b;
+  --t-blue: #9bd6ff;
+  --t-magenta: #d5b2ff;
   --t-mono: 'JetBrains Mono', ui-monospace, Menlo, monospace;
 }
 
 .theme-light {
-  --t-bg: #fafaf8;
-  --t-bg2: #f4f4f1;
-  --t-panel: #ecebe7;
-  --t-border: #e0dfdb;
-  --t-text: #18181b;
-  --t-dim: #6b6b70;
-  --t-dimmer: #a1a1a6;
-  --t-accent: #059669;
-  --t-amber: #b45309;
-  --t-red: #b91c1c;
-  --t-blue: #1d4ed8;
-  --t-magenta: #7c3aed;
+  --t-bg: #f6f5f2;
+  --t-bg2: #efefe9;
+  --t-panel: rgba(255, 255, 255, 0.7);
+  --t-panel-strong: #ffffff;
+  --t-border: rgba(15, 23, 42, 0.08);
+  --t-text: #121a22;
+  --t-dim: #586877;
+  --t-dimmer: #78879a;
+  --t-accent: #0f9f6e;
+  --t-amber: #b4692f;
+  --t-red: #c64141;
+  --t-blue: #2055d9;
+  --t-magenta: #7f5bd9;
   --t-mono: 'JetBrains Mono', ui-monospace, Menlo, monospace;
 }
-
-/* Font pair overrides */
-.font-geist { --t-mono: 'Geist Mono', ui-monospace, monospace; }
-.font-plex { --t-mono: 'IBM Plex Mono', ui-monospace, monospace; }
 
 @theme {
   --color-t-bg: var(--t-bg);
@@ -90,35 +89,77 @@
 html, body {
   margin: 0;
   padding: 0;
+  min-height: 100%;
   background: var(--t-bg);
 }
 
-* { box-sizing: border-box; }
+html {
+  scroll-behavior: smooth;
+}
 
 body {
+  position: relative;
   font-family: var(--t-mono);
+  color: var(--t-text);
+  background:
+    radial-gradient(circle at top left, rgba(126, 249, 197, 0.08), transparent 30%),
+    radial-gradient(circle at top right, rgba(122, 193, 255, 0.08), transparent 25%),
+    var(--t-bg);
   min-width: 320px;
   min-height: 100vh;
-  color: var(--t-text);
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  background-image: linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.015) 1px, transparent 1px);
+  background-size: 26px 26px;
+  mask-image: radial-gradient(circle at center, black 45%, transparent 100%);
+}
+
+* { box-sizing: border-box; }
+
+a {
+  text-decoration: none;
+}
+
+button, input, textarea, select {
+  font: inherit;
+}
+
 ::selection {
-  background: var(--t-accent);
+  background: color-mix(in srgb, var(--t-accent) 70%, transparent);
   color: var(--t-bg);
 }
 
-html { scroll-behavior: smooth; }
+::-webkit-scrollbar {
+  width: 8px;
+}
 
-/* Scrollbar */
-::-webkit-scrollbar { width: 6px; }
-::-webkit-scrollbar-track { background: var(--t-bg); }
-::-webkit-scrollbar-thumb { background: var(--t-border); border-radius: 3px; }
-::-webkit-scrollbar-thumb:hover { background: var(--t-dim); }
+::-webkit-scrollbar-track {
+  background: var(--t-bg);
+}
 
-/* Blink animation for terminal cursor */
-@keyframes termblink { 50% { opacity: 0; } }
-@keyframes kfade { from { opacity: 0; } }
+::-webkit-scrollbar-thumb {
+  background: rgba(148, 163, 184, 0.35);
+  border-radius: 999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(148, 163, 184, 0.55);
+}
+
+@keyframes termblink {
+  50% { opacity: 0; }
+}
+
+@keyframes kfade {
+  from { opacity: 0; }
+}
