@@ -1,53 +1,45 @@
-const SectionHeader = ({ num, title, sub }: { num: string; title: string; sub: string }) => (
-  <div className="flex items-baseline gap-3.5 pb-4 flex-wrap" style={{ borderBottom: '1px solid var(--t-border)' }}>
-    <span className="text-[13px]" style={{ color: 'var(--t-dimmer)' }}>{num}</span>
-    <h2 className="m-0 text-[26px] font-semibold tracking-tight" style={{ color: 'var(--t-text)' }}>
-      <span style={{ color: 'var(--t-accent)' }}>~/</span>{title}
-    </h2>
-    <span className="text-[13px] ml-auto" style={{ color: 'var(--t-dim)' }}>{sub}</span>
-  </div>
-);
+const skillGroups = [
+  {
+    title: 'Product interfaces',
+    detail: 'Build clear, responsive experiences that make complex workflows easier to use.',
+    skills: ['React', 'Next.js', 'TypeScript', 'JavaScript', 'Tailwind CSS', 'React Native'],
+  },
+  {
+    title: 'Applications & data',
+    detail: 'Connect frontends to dependable APIs, business logic, and persistent data.',
+    skills: ['Node.js', 'Express', 'GraphQL', 'PostgreSQL', 'MongoDB'],
+  },
+  {
+    title: 'Shipping & quality',
+    detail: 'Keep delivery practical with tests, maintainable systems, and modern deployment tools.',
+    skills: ['Jest', 'Storybook', 'Docker', 'AWS', 'Cloudflare', 'Vercel', 'Supabase'],
+  },
+];
 
-const skills: Record<string, string[]> = {
-  Languages: ['TypeScript', 'JavaScript', 'Python'],
-  Frontend: ['React', 'Next.js', 'Redux', 'React Native', 'Tailwind CSS', 'Framer Motion'],
-  Backend: ['Node.js', 'Express', 'GraphQL', 'PostgreSQL', 'MongoDB'],
-  Mobile: ['React Native', 'iOS', 'Android', 'Expo'],
-  Infra: ['AWS', 'Docker', 'Cloudflare', 'Vercel', 'Supabase'],
-  Testing: ['Jest', 'Mocha', 'Enzyme', 'Storybook'],
-};
+export const Stack = () => (
+  <section id="expertise" className="section-pad border-y border-line bg-surface">
+    <div className="site-container">
+      <p className="eyebrow">How I build</p>
+      <h2 className="section-title mt-4">Broad enough to own the whole slice.</h2>
+      <p className="section-intro">
+        I choose tools to fit the product and team, and stay hands-on from the interface down to the data and delivery.
+      </p>
 
-export const Stack = () => {
-  const entries = Object.entries(skills);
-
-  return (
-    <section className="px-6 md:px-10 py-[72px]">
-      <div className="max-w-[1280px] mx-auto">
-        <SectionHeader num="05" title="stack.json" sub="what I reach for" />
-        <div
-          className="mt-6 p-6 rounded-md text-[13px] leading-8"
-          style={{
-            background: 'var(--t-bg2)',
-            border: '1px solid var(--t-border)',
-          }}
-        >
-          <span style={{ color: 'var(--t-dim)' }}>{'{'}</span>
-          {entries.map(([k, arr], i) => (
-            <div key={k} className="pl-5">
-              <span style={{ color: 'var(--t-magenta)' }}>"{k}"</span>
-              <span style={{ color: 'var(--t-dim)' }}>: [</span>
-              {arr.map((s, j) => (
-                <span key={j}>
-                  <span style={{ color: 'var(--t-accent)' }}>"{s}"</span>
-                  {j < arr.length - 1 && <span style={{ color: 'var(--t-dim)' }}>, </span>}
-                </span>
+      <div className="mt-9 grid gap-4 md:grid-cols-3">
+        {skillGroups.map(group => (
+          <article key={group.title} className="rounded-2xl border border-line bg-page p-5 sm:p-6">
+            <h3 className="font-display text-2xl font-medium tracking-tight text-ink">{group.title}</h3>
+            <p className="mt-3 text-sm leading-6 text-muted">{group.detail}</p>
+            <ul className="mt-5 flex flex-wrap gap-2" aria-label={`${group.title} technologies`}>
+              {group.skills.map(skill => (
+                <li key={skill} className="rounded-full bg-surface px-3 py-1.5 text-xs font-medium text-muted">
+                  {skill}
+                </li>
               ))}
-              <span style={{ color: 'var(--t-dim)' }}>]{i < entries.length - 1 ? ',' : ''}</span>
-            </div>
-          ))}
-          <span style={{ color: 'var(--t-dim)' }}>{'}'}</span>
-        </div>
+            </ul>
+          </article>
+        ))}
       </div>
-    </section>
-  );
-};
+    </div>
+  </section>
+);

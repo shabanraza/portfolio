@@ -1,53 +1,59 @@
-const SectionHeader = ({ num, title, sub }: { num: string; title: string; sub: string }) => (
-  <div className="flex items-baseline gap-3.5 pb-4 flex-wrap" style={{ borderBottom: '1px solid var(--t-border)' }}>
-    <span className="text-[13px]" style={{ color: 'var(--t-dimmer)' }}>{num}</span>
-    <h2 className="m-0 text-[26px] font-semibold tracking-tight" style={{ color: 'var(--t-text)' }}>
-      <span style={{ color: 'var(--t-accent)' }}>~/</span>{title}
-    </h2>
-    <span className="text-[13px] ml-auto" style={{ color: 'var(--t-dim)' }}>{sub}</span>
-  </div>
-);
-
 const experience = [
-  { year: '2024 —', role: 'Independent · Engineer & Founder', company: 'Self-employed', note: 'Building SaaS products end-to-end. Selective senior contracts.' },
-  { year: '2022 — 2024', role: 'Senior Frontend Engineer', company: 'Mobiloitte', note: 'Fintech & web3. Component libraries, CI cadence.' },
-  { year: '2020 — 2022', role: 'Senior Software Engineer', company: 'GlobalLogic', note: 'Anaplan PlanIQ. Enterprise ML platform.' },
-  { year: '2018 — 2020', role: 'Software Engineer', company: 'Iris Software', note: 'Legacy migration. React + Redux-Saga at scale.' },
-  { year: '2015 — 2018', role: 'Software Engineer', company: 'HCLTech', note: 'First role. Enterprise web apps. Promoted twice in three years.' },
+  {
+    period: 'Oct 2023 — Present',
+    role: 'Senior Software Engineer',
+    company: 'GlobalLogic',
+    detail: 'Built reusable React components and frontend architecture for Anaplan; reduced load times by 30% through code-splitting and delivered 90%+ test coverage.',
+  },
+  {
+    period: 'Sep 2021 — Oct 2023',
+    role: 'Senior Software Engineer',
+    company: 'Iris Software',
+    detail: 'Modernized legacy systems with React, used Storybook to improve component reuse and developer productivity by 25%, and mentored a team of five.',
+  },
+  {
+    period: 'Sep 2017 — Sep 2021',
+    role: 'Senior Software Developer',
+    company: 'HCL',
+    detail: 'Built and maintained React, Redux, and Node.js applications; browser-based debugging reduced reported defects by 20%.',
+  },
+  {
+    period: 'Mar 2016 — Jul 2017',
+    role: 'Software Developer',
+    company: 'Mobiloitte Technology',
+    detail: 'Built cross-platform applications with AngularJS and Cordova, working directly with clients on requirements.',
+  },
+  {
+    period: 'Jan 2015 — Jan 2016',
+    role: 'Software Developer',
+    company: 'Softsol Consulting',
+    detail: 'Developed UI features with native JavaScript design patterns and improved internal tools.',
+  },
 ];
 
-export const Experience = () => {
-  return (
-    <section
-      id="about"
-      className="px-6 md:px-10 py-[60px]"
-      style={{
-        background: 'var(--t-bg2)',
-        borderTop: '1px solid var(--t-border)',
-        borderBottom: '1px solid var(--t-border)',
-      }}
-    >
-      <div className="max-w-[1280px] mx-auto">
-        <SectionHeader num="04" title="git.log" sub="--since='2015' --author=shaban" />
-        <div className="mt-7 text-[13px] leading-7">
-          {experience.map((e, i) => (
-            <div
-              key={i}
-              className="grid grid-cols-[120px_1fr] md:grid-cols-[140px_1fr] py-3.5"
-              style={{
-                borderBottom: i < experience.length - 1 ? '1px dashed var(--t-border)' : 'none',
-              }}
-            >
-              <span style={{ color: 'var(--t-amber)' }}>{e.year}</span>
-              <div>
-                <span className="font-semibold" style={{ color: 'var(--t-text)' }}>{e.role}</span>
-                <span style={{ color: 'var(--t-dim)' }}> @ {e.company}</span>
-                <div className="text-xs" style={{ color: 'var(--t-dim)' }}>// {e.note}</div>
-              </div>
-            </div>
-          ))}
-        </div>
+export const Experience = () => (
+  <section id="experience" className="section-pad">
+    <div className="site-container grid gap-10 lg:grid-cols-[0.8fr_1.2fr] lg:gap-20">
+      <div>
+        <p className="eyebrow">A little context</p>
+        <h2 className="section-title mt-4">A decade of learning by building.</h2>
+        <p className="section-intro">
+          My path has moved from enterprise teams to independent products—with a consistent focus on making software useful, clear, and dependable.
+        </p>
       </div>
-    </section>
-  );
-};
+      <ol className="divide-y divide-line border-y border-line">
+        {experience.map(item => (
+          <li key={`${item.company}-${item.period}`} className="grid gap-2 py-5 sm:grid-cols-[8rem_1fr] sm:gap-5">
+            <span className="pt-1 text-xs font-semibold uppercase tracking-[0.08em] text-faint">{item.period}</span>
+            <div>
+              <h3 className="text-sm font-semibold text-ink">
+                {item.role} <span className="font-normal text-muted">· {item.company}</span>
+              </h3>
+              <p className="mt-2 text-sm leading-6 text-muted">{item.detail}</p>
+            </div>
+          </li>
+        ))}
+      </ol>
+    </div>
+  </section>
+);

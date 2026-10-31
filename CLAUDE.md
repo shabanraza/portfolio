@@ -4,7 +4,7 @@ Guidance for AI assistants working in this repository. Read this before making c
 
 ## Project overview
 
-Personal portfolio SPA for **Mohammad Shaban** — a full-stack / mobile developer who also ships SaaS products. Built as a single-page React app with scroll-anchored sections (no real routing). Deployed to **Cloudflare Pages**.
+Personal portfolio SPA for **Mohammad Shaban**, positioned for Product Engineer and Full-Stack Engineer roles. It showcases independent products, selected engineering work, experience, skills, and contact links. Deployed to **Cloudflare Pages**.
 
 ## Commands
 
@@ -20,60 +20,44 @@ No test runner is configured.
 ## Tech stack
 
 - **React 19.2** + **TypeScript ~5.9**, **Vite 7.2**
-- **Tailwind CSS v4** via `@tailwindcss/vite` — uses `@import "tailwindcss"` in `src/index.css`. There is **no `tailwind.config.js`**; theme tokens live in `@theme { ... }` inside `src/index.css` and are driven by CSS custom properties on `:root` / `:root.light`.
-- **Framer Motion 12** for animation (also use it for magnetic/cursor effects — do not add GSAP or other motion libs)
-- **lucide-react** for UI icons; **devicons CDN** for tech-stack logos in the About section
+- **Tailwind CSS v4** via `@tailwindcss/vite` — uses `@import "tailwindcss"` in `src/index.css`. There is **no `tailwind.config.js`**; theme tokens live in `@theme { ... }` and the design variables on `:root`.
+- **lucide-react** for UI icons
 - **clsx** + **tailwind-merge** — exposed via a local `cn()` helper that is *redefined inside each UI component* (keep this pattern, don't centralize it)
-- **react-scroll** — active; drives all nav anchoring
+- **Native anchor links** — navigation uses section IDs and `href="#section"`; no client-side router is used
 - **react-router-dom** — installed but **unused**; do not introduce routes without an explicit ask
-- **@emailjs/browser** — contact form + lead-magnet form
-- **@calcom/embed-react** — booking widget in the Contact section
 
 ## Directory layout
 
 ```
 src/
-  main.tsx              React 19 createRoot; wraps App in ThemeProvider
-  App.tsx               Composition root: ParticleBackground + Navbar + <main>(sections) + Footer + StickyCTA
-                        Sections below the fold are React.lazy'd (see App.tsx:9-19)
-  index.css             Tailwind import + CSS custom properties for theme
-                        + global utilities (.heading-xl, .heading-lg, .heading-md, .text-lead,
-                          .glass-panel, .glass-panel-hover, .editorial-grid)
+  main.tsx              React 19 createRoot; renders App
+  App.tsx               Composition root: Navbar + Hero + portfolio sections + Footer
+                        Below-the-fold sections are React.lazy'd
+  index.css             Tailwind import + light editorial design tokens and shared layout styles
   components/
-    ui/                 Base primitives: Button, Section, GlassCard, MobileDeviceFrame
-    ParticleBackground.tsx, HeroVisual.tsx, SkillsMarquee.tsx, TrustedBy.tsx, StickyCTA.tsx
-  sections/             Page sections (Hero, ProblemSolution, Projects, Process, Comparison,
-                        Services, Guarantee, Testimonials, About, LeadMagnet, FAQ, Contact)
+    ui/                 Small shared primitives
+    StickyCTA.tsx       Optional CTA primitive
+  sections/             Hero, StatsBar, Products, CaseStudies, Experience, Stack, Contact
   layout/               Navbar, Footer
-  context/
-    ThemeContext.tsx    Dark/light theme provider + useTheme() hook; persists to localStorage
-                        Theme is applied by toggling .dark / .light on <html>
-  utils/
-    email.ts            sendEmail() and sendLeadMagnet() — EmailJS wrappers
   assets/               Local logos (.svg, .webp, .avif) imported as ES modules
-public/                 Static files served at root: me.png, profile.JPG, mvp-checklist.html
-index.html              Loads Google Fonts (DM Sans, Syne); mounts #root
-env.example             Template for required env vars
+public/                 Static files served at root, including the portfolio portrait
+index.html              Loads Google Fonts (Inter, Fraunces); mounts #root
 ```
 
 ## Routing & navigation
 
-Single page. `react-scroll`'s `<Link to="..." smooth duration={500}>` targets the `id` prop on each `<Section>`. To add a "page":
+Single page. Navigation uses native `<a href="#section-id">` links targeting section IDs. To add a section:
 
-1. Create a new section in `src/sections/` using `<Section id="my-section">`.
-2. Lazy-import it in `App.tsx` (follow the existing pattern at `App.tsx:9-19`).
-3. Add an entry to `navItems` in `src/layout/Navbar.tsx`.
+1. Create a section in `src/sections/` with a stable `id`.
+2. Lazy-import and render it in `App.tsx` if it is below the fold.
+3. Add a matching `href` to the links in `src/layout/Navbar.tsx` if it belongs in navigation.
 
 ## Styling conventions
 
-- Reference theme colors with CSS variables: `text-primary`, `bg-[var(--color-surface)]`, `text-[var(--color-muted)]`, `border-[var(--color-border)]`.
-- **Do not use Tailwind's `dark:` variants** — theming is driven by `.dark` / `.light` on `<html>`, not by Tailwind's dark mode. `dark:` classes will not respond to the toggle.
-- Fonts: `font-display` → Syne (headings), `font-body` → DM Sans (body). Both loaded from Google Fonts in `index.html`.
-- Prefer existing utilities over new CSS:
-  - Headings: `.heading-xl`, `.heading-lg`, `.heading-md`
-  - Body lead: `.text-lead`
-  - Glass cards: `.glass-panel`, `.glass-panel-hover`
-- CSS theme variables live in `src/index.css:3-63`. Add new tokens there and expose them under `@theme { ... }` if they need to be Tailwind-addressable.
+- Use the CSS variables in `src/index.css` and their Tailwind tokens (`text-ink`, `bg-page`, `border-line`, etc.).
+- The visual system uses a light paper background, Inter for body text, and Fraunces for display headings.
+- Shared layout and reusable patterns (`.site-container`, `.section-pad`, `.eyebrow`, `.project-card`) are defined in `src/index.css`.
+- Add new theme colors to the root variables and expose them under `@theme` when Tailwind classes need them.
 
 ## Component conventions
 
@@ -88,7 +72,7 @@ Single page. `react-scroll`'s `<Link to="..." smooth duration={500}>` targets th
     className?: string;
   }
   ```
-- **Always accept `className?: string`** and spread `{...props}` to the root element.
+- Reusable UI primitives may accept `className?: string` and spread remaining props to their root element.
 - **Variant/size lookup pattern** for UI primitives:
   ```ts
   const variants = { primary: '...', secondary: '...' };
@@ -100,31 +84,19 @@ Single page. `react-scroll`'s `<Link to="..." smooth duration={500}>` targets th
 
 ## Data
 
-Portfolio content (case studies, services, skill lists, FAQ items, testimonials) is **hardcoded as typed arrays inside the section component that renders it**. See `caseStudies` in `src/sections/Projects.tsx:6-52` for the canonical shape. There is no `data/` directory — maintain this colocated pattern when adding new content.
+Portfolio content (products, engineering work, experience, and skill groups) is **hardcoded as typed arrays inside the section component that renders it**. There is no `data/` directory — maintain this colocated pattern when adding new content.
 
 ## State management
 
-**Context API only** — a single global `ThemeContext`. Everything else is local `useState`. Do **not** add Redux, Zustand, or other state libraries without explicit ask.
+Use local React state for interactive UI such as the mobile navigation. There is no global state provider; do not add a state library without an explicit ask.
 
 ## Animations
 
-- **Framer Motion** is the default. Canonical reveal pattern:
-  ```tsx
-  <motion.div
-    initial={{ opacity: 0, y: 20 }}
-    whileInView={{ opacity: 1, y: 0 }}
-    transition={{ delay: 0.1, duration: 0.6 }}
-  />
-  ```
-- Use `AnimatePresence` for exit animations.
-- `HeroVisual.tsx` demonstrates motion values (`useMotionValue`, `useTransform`, `useSpring`) for 3D tilt — follow this for similar interactive effects.
-- `ParticleBackground.tsx` is canvas-driven and reads theme colors from CSS vars.
+Keep motion restrained and purposeful; respect `prefers-reduced-motion`. CSS transitions are sufficient for the current design.
 
 ## Icons & assets
 
 - UI icons: `import { ArrowRight, Mail, Menu, X } from 'lucide-react'`.
-- Tech-stack logos (About section): external devicons CDN (`https://cdn.jsdelivr.net/gh/devicons/devicon/...`).
-- Local logos: `import globalLogicLogo from '../assets/global_logic.svg'` (ES-module import).
 - Profile / static images: reference from `/public` by root-relative path, e.g. `<img src="/me.png" />`.
 
 ## Environment variables
@@ -155,16 +127,16 @@ Target: **Cloudflare Pages** (standard static deployment). Recent commits delibe
 ## Do / Don't quick reference
 
 **Do**
-- Reuse `Section`, `Button`, `GlassCard`, `MobileDeviceFrame` rather than rebuilding primitives.
-- Colocate section content (arrays of typed objects) inside the section component.
-- Use CSS-variable theme colors (`text-primary`, `bg-[var(--color-surface)]`, etc.).
-- Lazy-load any new below-the-fold section in `App.tsx`.
+- Keep product and section content colocated with the component that renders it.
+- Use the CSS-variable design tokens and existing layout utilities.
+- Lazy-load below-the-fold sections in `App.tsx`.
+- Keep GitHub highlights curated and static; do not add runtime API dependencies for portfolio content.
 - Run `npm run build` before committing — `noUnusedLocals` will catch dangling imports.
 
 **Don't**
-- Use Tailwind `dark:` variants — they don't respond to the theme toggle.
+- Reintroduce terminal-themed chrome or fabricated activity/metrics.
 - Add default exports for new components (except `App`).
 - Create a `types/` or `data/` directory — it breaks the established colocated pattern.
 - Add new state-management libraries.
 - Reintroduce Cloudflare Worker config (`wrangler.json`, `worker.ts`).
-- Introduce new animation libraries (GSAP, Lottie-only setups) — Framer Motion covers the use cases here.
+- Introduce new animation libraries without an explicit need.

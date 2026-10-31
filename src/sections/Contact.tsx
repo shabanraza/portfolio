@@ -1,89 +1,56 @@
-import { useState } from 'react';
+import { ArrowUpRight, CalendarDays, Github, Linkedin, Mail } from 'lucide-react';
 
-export const Contact = () => {
-  const email = 'shaban.razaa@gmail.com';
-  const [copied, setCopied] = useState(false);
-
-  const copyEmail = () => {
-    navigator.clipboard?.writeText(email);
-    setCopied(true);
-    setTimeout(() => setCopied(false), 1800);
-  };
-
-  return (
-    <section
-      id="contact"
-      className="px-6 md:px-10 py-[120px] pb-20"
-      style={{
-        background: 'var(--t-bg2)',
-        borderTop: '1px solid var(--t-border)',
-      }}
-    >
-      <div className="max-w-[900px] mx-auto text-center">
-        <div className="text-[13px] mb-5" style={{ color: 'var(--t-accent)' }}>
-          $ ./get_in_touch.sh --serious
+export const Contact = () => (
+  <section id="contact" className="section-pad">
+    <div className="site-container">
+      <div className="overflow-hidden rounded-[1.75rem] bg-ink px-6 py-10 text-page sm:px-10 sm:py-14 lg:px-16 lg:py-16">
+        <div className="grid gap-10 lg:grid-cols-[1fr_auto] lg:items-end">
+          <div className="max-w-2xl">
+            <p className="eyebrow !text-[#b9d1c0]">Let’s make something useful</p>
+            <h2 className="mt-5 font-display text-4xl font-medium leading-[1.05] tracking-tight sm:text-5xl lg:text-6xl">
+              Looking for a product-minded engineer?
+            </h2>
+            <p className="mt-5 max-w-xl text-sm leading-7 text-page/75 sm:text-base">
+              I’m open to Product Engineer and Full-Stack Engineer roles. If you’re building something that needs a thoughtful, hands-on engineer, I’d like to hear about it.
+            </p>
+          </div>
+          <div className="flex flex-col items-start gap-4 lg:items-end">
+            <a
+              href="mailto:shaban.razaa@gmail.com?subject=Product%20engineering%20opportunity"
+              className="inline-flex min-h-12 items-center gap-3 rounded-full bg-page px-5 py-3 text-sm font-semibold text-ink transition-colors hover:bg-accent-soft"
+            >
+              <Mail size={17} /> shaban.razaa@gmail.com <ArrowUpRight size={16} />
+            </a>
+            <a
+              href="https://cal.com/mohammad-shaban-1dc27o/30min"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 text-sm text-page/80 transition-colors hover:text-page"
+            >
+              <CalendarDays size={16} /> Schedule a conversation <ArrowUpRight size={15} />
+            </a>
+          </div>
         </div>
-        <h2
-          className="text-4xl md:text-6xl font-bold m-0 tracking-tight leading-tight"
-          style={{ color: 'var(--t-text)' }}
-        >
-          Got something<br />
-          <span style={{ color: 'var(--t-accent)' }}>interesting</span> to build?
-        </h2>
-        <p
-          className="text-[17px] mt-5 max-w-[560px] mx-auto"
-          style={{ color: 'var(--t-dim)' }}
-        >
-          I'm open to senior / staff roles and selective consulting. Short descriptions get short replies. Detailed ones get thoughtful ones.
-        </p>
-        <div className="flex gap-3 justify-center mt-10 flex-wrap">
+
+        <div className="mt-10 flex flex-wrap gap-x-6 gap-y-3 border-t border-page/20 pt-6">
           <a
-            href={`mailto:${email}`}
-            className="px-6 py-3.5 font-semibold no-underline rounded-md text-[15px]"
-            style={{
-              background: 'var(--t-accent)',
-              color: 'var(--t-bg)',
-              boxShadow: '0 0 24px color-mix(in srgb, var(--t-accent) 33%, transparent)',
-            }}
-          >
-            {email} →
-          </a>
-          <button
-            onClick={copyEmail}
-            className="px-6 py-3.5 rounded-md text-[15px] cursor-pointer"
-            style={{
-              background: 'transparent',
-              color: 'var(--t-text)',
-              border: '1px solid var(--t-border)',
-              fontFamily: 'inherit',
-            }}
-          >
-            {copied ? '✓ copied' : 'cp email'}
-          </button>
-          <a
-            href="https://cal.com/mohammad-shaban-1dc27o/30min"
+            href="https://github.com/shabanraza"
             target="_blank"
             rel="noopener noreferrer"
-            className="px-6 py-3.5 no-underline rounded-md text-[15px]"
-            style={{
-              background: 'transparent',
-              color: 'var(--t-text)',
-              border: '1px solid var(--t-border)',
-            }}
+            className="inline-flex items-center gap-2 text-sm text-page/80 hover:text-page"
           >
-            schedule call
+            <Github size={16} /> GitHub <ArrowUpRight size={14} />
+          </a>
+          <a
+            href="https://www.linkedin.com/in/shaban-dev/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-2 text-sm text-page/80 hover:text-page"
+          >
+            <Linkedin size={16} /> LinkedIn <ArrowUpRight size={14} />
           </a>
         </div>
-        <div
-          className="text-xs mt-11 flex gap-5 justify-center flex-wrap"
-          style={{ color: 'var(--t-dimmer)' }}
-        >
-          <span>avg reply: <span style={{ color: 'var(--t-accent)' }}>24h</span></span>
-          <span>tz: IST (UTC+5:30)</span>
-          <span>won't ghost you</span>
-          <span>NDAs welcome</span>
-        </div>
       </div>
-    </section>
-  );
-};
+    </div>
+  </section>
+);
